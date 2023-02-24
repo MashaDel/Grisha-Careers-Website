@@ -8,23 +8,33 @@
     
     <style>
       #banner{
-        height:390px;
+        height:490px;
         width:100%;
         object-fit:cover;
+        margin-bottom:16px;
       }
       
     </style>
   </head>
   
   <body>
+    {% include "nav.html" %}
+    <img class="img-fluid" id="banner" src="https://careers-website-for-grisha.mariadelen.repl.co/static/banner.jpg" >
     <div class="container"> 
-      <h1 class="text-center mt-2 mb-4"> {{company_name}} Careers</h1>
-      <img class="img-fluid" id="banner" src="https://careers-website-for-grisha.mariadelen.repl.co/static/banner.jpg" >
-      <h2 class="text-center mt-3 mb-3">About Grisha</h2>
+      <h1 class="text-center mt-2 mb-4"> 
+        {{company_name}} Careers
+      </h1>
+      <div class="row" style="margin-bottom:16px">
+        <div class="col-md-6">
       <p class="lead"> 
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      
       </p>
+        </div>
+        <div class="d-none d-md-block col-md-6">
+        <img src="static/people.jpg" 
+          style="height:300px; border-radius:4px;">
+        </div>
+      </div>  
       <h2 class="text-center mt-2 mb-4">Job Openings</h2>
       <p>
         {% for job in jobs %}
@@ -32,10 +42,11 @@
         {% endfor %}
       </p>
       <div class="text-center">
-      <button class="btn btn-primary btn-lg">Contact Us</button>
-      <p class="mt-4">Copyright 2022,Grisha</p>
+        <a class="btn btn-primary btn-lg" 
+          href="mailto:marimare@inbox.ru?subject=Question%20about%20Job%20Openings&body=My%20name%3A%20%3CYour%20name%20here%2Cpelase%3E%0D%0AMy%20question%3A%3CEnter%20Your%20question%20here%2C%20please%3E">Contact Us</a>
       </div>  
     </div>
+    {% include "footer.html" %}
   </body>
   
 </html>
