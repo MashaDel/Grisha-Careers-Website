@@ -2,7 +2,7 @@ from sqlalchemy import create_engine,text
 import os
 
 db_connection_string = os.environ["DB_CONNECTION_STRING"]
-#"mysql+pymysql://zn6vt4paz14yv5e4puws:pscale_pw_1gKCjEvtA9fKqMYhkzDMdEg4eJJ4JvtCm9ePfyTFz3i@ap-south.connect.psdb.cloud/grishacareers?charset=utf8mb4"
+
 
 engine = create_engine(
   db_connection_string,
