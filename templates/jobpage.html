@@ -8,7 +8,7 @@
   <body>
     {% include "nav.html" %}
     {% include 'banner.html' %}
-<!--     <img class="img-fluid" id="job" src="https://careers-website-for-grisha.mariadelen.repl.co/static/job.jpg" > -->
+
     <div class="container"> 
       <h1 class="text-center mt-2 mb-4"> 
         Grisha Careers
@@ -29,6 +29,8 @@
       </ol>
     <h4>Salary</h4>
     <p>{{job['currency']}}{{job['salary']}}</p>
+    {% include "application_form.html" %}
+      
     </div>
     {% include "footer.html" %}
   </body>

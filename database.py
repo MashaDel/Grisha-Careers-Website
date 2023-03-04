@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine,text
+from sqlalchemy import create_engine,text,insert
 import os
 
 db_connection_string = os.environ["DB_CONNECTION_STRING"]
@@ -36,10 +36,47 @@ def load_job_from_db(id):
       return [dict(row) for row in rows][0]
 
 
-      
-print(load_job_from_db(4)['title'])
-          
+
+
+
+
+def add_application_to_db(job_id, data):
+  a=data["full_name"][0]
+  b=data['email'][0]
+  c=data ["linkedin_url"][0]
+  d=data['education'][0]
+  e=data['work_experience'][0]
+  f=data['resume_url'][0]
+  with engine.connect() as conn:
+    conn.execute(text(f"INSERT INTO applications (job_id, full_name, email, linkedin_url, education, work_experience, resume_url) VALUES ({job_id}, '{a}','{b}','{c}','{d}', '{e}', '{f}')"))
+
+    
+
+
+
+def add_application_to_db_1(job_id, data):
+  with engine.connect() as conn:
+    query = text("INSERT INTO applications (job_id, full_name, email, linkedin_url, education, work_experience, resume_url) VALUES (:job_id, :full_name, :email, :linkedin_url, :education, :work_experience, :resume_url)")
+
+    conn.execute(query, 
+                 job_id=job_id, 
+                 full_name=data['full_name'],
+                 email=data['email'],
+                 linkedin_url=data['linkedin_url'],
+                 education=data['education'],
+                 work_experience=data['work_experience'],
+                 resume_url=data['resume_url'])
+                    
+
+                 
+                  
+    
+
+
+
+
+
+             
     
   
- 
-  
+

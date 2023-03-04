@@ -2,3 +2,4 @@ Flask
 gunicorn
 sqlalchemy
 pymysql
+SQLAlchemy==1.4.46
