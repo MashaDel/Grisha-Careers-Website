@@ -7,7 +7,19 @@
   
   <body>
     {% include "nav.html" %}
-    {% include 'banner.html' %}
+    <!--{% include 'banner.html' %}-->
+        <div>
+    <style>
+      #job{
+        height:460px;
+        width:100%;
+        object-fit:cover;
+        margin-bottom:16px;
+          }
+    </style>
+    <img class="img-fluid" id="job" src="/static/jobs.jpg" alt="jobs"> 
+    </div>
+    
 
     <div class="container"> 
       <h1 class="text-center mt-2 mb-4"> 
