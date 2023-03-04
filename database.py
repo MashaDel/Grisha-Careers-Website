@@ -34,8 +34,9 @@ def load_job_from_db(id):
       return None
     else:
       return [dict(row) for row in rows][0]
+      
 
-
+#first variant of function sqlalchemy 2.0.4
 def add_application_to_db(job_id, data):
   a=data["full_name"][0]
   b=data['email'][0]
@@ -46,11 +47,11 @@ def add_application_to_db(job_id, data):
   with engine.connect() as conn:
     conn.execute(text(f"INSERT INTO applications (job_id, full_name, email, linkedin_url, education, work_experience, resume_url) VALUES ({job_id}, '{a}','{b}','{c}','{d}', '{e}', '{f}')"))
 
-    
+
+#second variant of function sqlalchemy 1.4.6
 def add_application_to_db_1(job_id, data):
   with engine.connect() as conn:
     query = text("INSERT INTO applications (job_id, full_name, email, linkedin_url, education, work_experience, resume_url) VALUES (:job_id, :full_name, :email, :linkedin_url, :education, :work_experience, :resume_url)")
-
     conn.execute(query, 
                  job_id=job_id, 
                  full_name=data['full_name'],

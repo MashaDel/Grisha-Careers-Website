@@ -35,6 +35,7 @@ def show_job_json(id):
   return jsonify(job)
   
 
+
 @app.route("/job/<id>/apply", methods=["post"])
 def apply_to_job(id):
   id=int(id)
@@ -47,9 +48,9 @@ def apply_to_job(id):
                           application=data,
                           job=job
                           )
- 
-  
 
+  
+  
 if __name__ == "__main__":
   app.run(host="0.0.0.0",debug=True)
   
