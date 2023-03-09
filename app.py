@@ -4,6 +4,22 @@ from database import load_jobs_from_db,load_job_from_db,add_application_to_db
 
 
 app=Flask(__name__)
+
+
+@app.route("/login",methods=["post"])
+def login():
+  res=requests.form
+  print(res)
+  return render_template("login_form.html")
+  
+
+@app.route("/register",methods=["post"])
+def register():
+  res=requests.form
+  print(res)
+  return render_template("register_form.html")
+
+
   
 @app.route("/")
 def hello_grisha():
@@ -50,6 +66,13 @@ def apply_to_job(id):
                           )
 
   
+
+
+#______________________________________________________
+#@app.route("/login")
+#def page_login():
+  #return render_template("login_form.html")
+
   
 if __name__ == "__main__":
   app.run(host="0.0.0.0",debug=True)
