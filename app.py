@@ -57,7 +57,7 @@ def apply_to_job(id):
   id=int(id)
   data=request.form.to_dict(flat=False)
   dt=request.form
-  print('data=',data,"id=",id,"data['linkedin_url']=",data ["linkedin_url"][0],'type(data)=',type(data),'type(dt)=',type(dt),'dt=',dt,sep='\n')
+ # print('data=',data,"id=",id,"data['linkedin_url']=",data ["linkedin_url"][0],'type(data)=',type(data),'type(dt)=',type(dt),'dt=',dt,sep='\n')
   job=load_job_from_db(id)
   add_application_to_db(id,data)
   return render_template("application_submitted.html",
@@ -66,12 +66,6 @@ def apply_to_job(id):
                           )
 
   
-
-
-#______________________________________________________
-#@app.route("/login")
-#def page_login():
-  #return render_template("login_form.html")
 
   
 if __name__ == "__main__":
