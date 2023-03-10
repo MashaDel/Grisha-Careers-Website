@@ -5,19 +5,37 @@ from database import load_jobs_from_db,load_job_from_db,add_application_to_db
 
 app=Flask(__name__)
 
-
-@app.route("/login",methods=["post"])
-def login():
-  res=requests.form
-  print(res)
+#_Блок регистрации на сайте и занесения данных в БД                _________________________
+@app.route("/login")
+def login_page():
   return render_template("login_form.html")
   
 
-@app.route("/register",methods=["post"])
-def register():
-  res=requests.form
-  print(res)
+@app.route("/register")
+def register_page():
   return render_template("register_form.html")
+
+
+@app.route("/login/apply", methods=["post"])
+def login_done():
+  data=request.form.to_dict(flat=False)
+  print(data,type(data))
+  #add_login_email_to_db(data)
+  return render_template("login_submitted.html",
+                         a=data)
+
+
+@app.route("/register/apply", methods=["post"])
+def register_done():
+  data=request.form.to_dict(flat=False)
+  print(data,type(data))
+  #add_login_email_to_db(data)
+  return render_template("register_submitted.html",
+                         a=data,
+                        new_name=data["new_name"][0])
+
+
+
 
 
   
@@ -62,8 +80,8 @@ def apply_to_job(id):
   add_application_to_db(id,data)
   return render_template("application_submitted.html",
                           application=data,
-                          job=job
-                          )
+                          job=job,
+                          data=data)
 
   
 

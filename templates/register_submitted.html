@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Register Submitted</title>
+    {% include 'bootstrap.html' %}
+  </head>
+  <body>
+    {% include "nav.html" %}
+    {% include 'banner.html' %}
+
+    <div class="container"> 
+      <h1 class="text-center mt-2 mb-4"> <br>
+        Congratulates, {{new_name}}!!!
+      </h1> 
+
+      <h1><p>Your registration is secseccfull done.</p></h1>
+      <h3>data={{a}} </h3>
+
+      <div class="col-2 padding-right:16px">
+        <a href="/login" 
+        type="button" class="btn btn-outline-primary float-right align-middle">SIGN IN</a>
+      </div> 
+      
+      
+    </div>
+    {% include "footer.html" %}
+  </body>
+</html>

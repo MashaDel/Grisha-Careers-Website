@@ -1,19 +1,24 @@
 <h4>Application Form</h4>
-<form action="/login" method="post">
+<form action="/register/apply" method="post">
+
+  <div class="mb-2">
+  <label>Name</label><br>
+  <input type="text" name="new_name" >
+  </div>
   
   <div class="mb-2">
-  <label>Email_New</label><br>
-  <input type="email" required name="email">
+  <label>New_Email</label><br>
+  <input type="email" required name="new_email">
   </div>
 
   <div class="mb-2">
-  <label>Password_New</label><br>
-  <input type="url" name="password" >
+  <label>New_password</label><br>
+  <input type="text" name="new_password" >
   </div>
 
 
   <div class="mb-2 mt-2">
-  <input type="Register" ><br>
+  <input type="Submit"><br>
   </div>
 
 </form>
