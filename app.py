@@ -1,11 +1,11 @@
 from flask import Flask,render_template,jsonify,request
-from database import load_jobs_from_db,load_job_from_db,add_application_to_db
+from database import load_jobs_from_db,load_job_from_db,add_application_to_db,status
 
 
 
 app=Flask(__name__)
 
-#_Блок регистрации на сайте и занесения данных в БД                _________________________
+#_Authorization block _________________________________________________________________________
 @app.route("/login")
 def login_page():
   return render_template("login_form.html")
@@ -19,20 +19,38 @@ def register_page():
 @app.route("/login/apply", methods=["post"])
 def login_done():
   data=request.form.to_dict(flat=False)
+  jobs=load_jobs_from_db()
   print(data,type(data))
   #add_login_email_to_db(data)
   return render_template("login_submitted.html",
+                         jobs=jobs,
                          a=data)
 
 
 @app.route("/register/apply", methods=["post"])
 def register_done():
   data=request.form.to_dict(flat=False)
+  jobs=load_jobs_from_db()
   print(data,type(data))
   #add_login_email_to_db(data)
-  return render_template("register_submitted.html",
+  return render_template("user_page.html",
                          a=data,
-                        new_name=data["new_name"][0])
+                         new_name=data["new_name"][0],
+                         jobs=jobs)
+
+@app.route("/user")
+def user_page():
+  jobs=load_jobs_from_db()
+  return render_template("user_page.html",
+                         jobs=jobs)
+
+
+@app.route("/status/<name>/<mail>")
+def status_page(name,mail):
+  data=status(name,mail)
+  #res=status(name,mail)
+  return render_template("status_page.html",
+                         data=data)
 
 
 

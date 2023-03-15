@@ -44,14 +44,15 @@ def add_application_to_db(job_id, data):
   d=data['education'][0]
   e=data['work_experience'][0]
   f=data['resume_url'][0]
+  g="not viewed"
   with engine.connect() as conn:
-    conn.execute(text(f"INSERT INTO applications (job_id, full_name, email, linkedin_url, education, work_experience, resume_url) VALUES ({job_id}, '{a}','{b}','{c}','{d}', '{e}', '{f}')"))
+    conn.execute(text(f"INSERT INTO applications (job_id, full_name, email, linkedin_url, education, work_experience, resume_url,status) VALUES ({job_id}, '{a}','{b}','{c}','{d}', '{e}', '{f}','{g}')"))
 
 
 #second variant of function sqlalchemy 1.4.6
 def add_application_to_db_1(job_id, data):
   with engine.connect() as conn:
-    query = text("INSERT INTO applications (job_id, full_name, email, linkedin_url, education, work_experience, resume_url) VALUES (:job_id, :full_name, :email, :linkedin_url, :education, :work_experience, :resume_url)")
+    query = text(f"INSERT INTO applications (job_id, full_name, email, linkedin_url, education, work_experience, resume_url,status) VALUES (:job_id, :full_name, :email, :linkedin_url, :education, :work_experience, :resume_url)")
     conn.execute(query, 
                  job_id=job_id, 
                  full_name=data['full_name'],
@@ -59,10 +60,24 @@ def add_application_to_db_1(job_id, data):
                  linkedin_url=data['linkedin_url'],
                  education=data['education'],
                  work_experience=data['work_experience'],
-                 resume_url=data['resume_url'])
+                 resume_url=data['resume_url']
+                 )
                     
 
-                 
+
+def status(name,mail):
+  with engine.connect() as conn:
+    result = conn.execute(
+    text(f"SELECT * FROM applications WHERE full_name={name} and email={mail}"))
+    rows=[]
+    for i in result.all():
+      rows.append(i._mapping)
+      if len(rows)==0:
+        return None
+      else:
+        return rows
+        #return [dict(row) for row in rows][0]
+        
                   
     
 

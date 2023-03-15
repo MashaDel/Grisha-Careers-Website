@@ -1,24 +1,38 @@
-<h4>Application Form</h4>
-<form action="/register/apply" method="post">
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Login page</title>
+    {% include 'bootstrap.html' %}
+  </head>
+  <body>
+    {% include "nav.html" %}
+    <div class="d-flex justify-content-center  mb-3 mt-3"    style="background-image: url('/static/bg2.jpg');height: 100vh;">
+      <div >
+        <h1 class="text-center mt-2 mb-4">Sign in to Grisha </h1>
+        <form action="/register/apply" method="post">  
+          
+          <div class="text mt-2 mb-4">
+          <label><h5>Name</h5></label><br>
+          <input type="text" name="new_name" class="form-control">
+          </div>
 
-  <div class="mb-2">
-  <label>Name</label><br>
-  <input type="text" name="new_name" >
-  </div>
-  
-  <div class="mb-2">
-  <label>New_Email</label><br>
-  <input type="email" required name="new_email">
-  </div>
+          <div class="text mt-2 mb-4">
+          <label><h5>Email</h5></label><br>
+          <input type="email" required name="new_email" class="form-control" >
+          </div>
 
-  <div class="mb-2">
-  <label>New_password</label><br>
-  <input type="text" name="new_password" >
-  </div>
+          <div class="text mt-2 mb-4">
+          <label><h5>Password</h5></label><br>
+          <input type="text" required name="new_password" class="form-control" >
+          </div>
 
+          <div class="text-center mt-2 mb-4"><br>
+          <input type="submit" value="COMPLETE SIGN UP" class="form-control" ><br>
+          </div>
+        </form>
+      </div>
+    </div> 
+    {% include "footer.html" %}
+  </body>
+</html>
 
-  <div class="mb-2 mt-2">
-  <input type="Submit"><br>
-  </div>
-
-</form>

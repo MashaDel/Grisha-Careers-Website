@@ -6,6 +6,9 @@
   </head>
   <body>
     {% include "nav.html" %}
+    <div class="float-end mt-3 mb-2 ">
+      <a href="/" type ="button" class="btn btn-secondary btn-lg align-middle ">SIGN OUT</a>
+    </div>  
     {% include 'banner.html' %}
 
     <div class="container"> 
@@ -28,13 +31,24 @@
       <div class="mb-4">{{application["education"][0]}}</div>
 
       <b>Work Experience</b>
-      <div>{{application["work_experience"][0]}}</div>
+      <div class="mb-4"> {{application["work_experience"][0]}}</div>
 
       <b>Resume URL</b>
       <div class="mb-4">{{application["resume_url"][0]}}</div>
-    </div>
+      
+      <div class="row" style="margin-bottom:16px">
+        <div class="col-5">
+          <b>Here you can see the status of your application(s).</b>
+        </div>
+
+        <div class="col-7">
+          <a href="/status/<name>/<mail>" 
+            type="button" class="btn btn-outline-primary float-left     align-middle">See status</a>
+        </div> 
+      </div>
     {% include "footer.html" %}
     <h1>data={{data}}</h1>
+    
   </body>
 </html>
 

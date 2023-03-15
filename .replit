@@ -96,3 +96,6 @@ args = ["stderred", "--", "prybar-python310", "-q", "--ps1", "\u0001\u001B[33m\u
 
 [interpreter.command.env]
 LD_LIBRARY_PATH = "$PYTHON_LD_LIBRARY_PATH"
+
+[deployment]
+run = ["sh", "-c", "python3 main.py"]

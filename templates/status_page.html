@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Status page</title>
+    {% include 'bootstrap.html' %}
+  </head>
+  <body>
+    {% include "nav.html" %}  
+    <div class="d-flex justify-content-end mt-4 mb-2 ">
+       <a href="/" type ="button" class="btn btn-secondary btn-middle align-middle ">SIGN OUT</a>
+    </div>
+    <div class="d-flex justify-content-center align-items-center"     style="background-image: url('/static/st1.jpg');height: 800px;">
+      <div class="text-center align-items-center mt-2 mb-4">
+        <h5 >Dear Maria, Below in the table you can see the full information on your applications and their status. </h5>
+        <h5>Expect a notification letter from our company.<h5>
+        <h5>Good luck!</h5>
+      </div>
+    </div> 
+    <h1>data={{data}}</h1>
+    {% include "footer.html" %}
+  </body>
+</html>
