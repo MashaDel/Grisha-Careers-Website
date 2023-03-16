@@ -1,13 +1,13 @@
 <h4>Application Form</h4>
-<form action="/job/{{job['id']}}/apply" method="post">
+<form action="/job/{{job['id']}}/{{u_name}}/{{u_mail}}/apply" method="post">
   <div class="mb-2">
   <label>Full Name</label><br>
-  <input type="text" required name="full_name" placeholder="Maria Delen" >
+  <input type="text" required name="full_name"  value={{u_name}} >
   </div>
 
   <div class="mb-2">
   <label>Email</label><br>
-  <input type="email" required name="email" placeholder="mariadelen@gmail.com">
+  <input type="email" required name="email" value={{u_mail}} >
   </div>
 
   <div class="mb-2">

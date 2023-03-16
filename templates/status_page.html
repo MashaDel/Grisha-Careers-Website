@@ -11,12 +11,48 @@
     </div>
     <div class="d-flex justify-content-center align-items-center"     style="background-image: url('/static/st1.jpg');height: 800px;">
       <div class="text-center align-items-center mt-2 mb-4">
-        <h5 >Dear Maria, Below in the table you can see the full information on your applications and their status. </h5>
+        <h5 >Dear {{u_name}}, Below in the table you can see the full information on your application(s) and their status. </h5>
+        
+        <table class="table tabe-hover">
+          <thead>
+            <tr>
+              {% for i in col %}
+              <th scope="col">{{i}}</th>
+              {% endfor %}
+            </tr>
+          </thead>
+        <tbody>
+          <tr>
+            {% for i in range(1,3) %}
+            <th scope="row">{{i}}</th>
+            {% for j in table_value %} 
+            <td>{{j}}</td>
+            {% endfor %}
+          </tr>
+            {% endfor %}
+          
+          <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td colspan="2">Larry the Bird</td>
+            <td>@twitter</td>
+          </tr>
+        </tbody>
+      </table> 
+        
         <h5>Expect a notification letter from our company.<h5>
-        <h5>Good luck!</h5>
       </div>
     </div> 
-    <h1>data={{data}}</h1>
+    <h1>table={{table}}</h1>
+    <h1>col={{col}}</h1>
+    <h1>table_value={{table_value}}</h1>
+    <h1>len={{len}}</h1>
+    
     {% include "footer.html" %}
   </body>
 </html>

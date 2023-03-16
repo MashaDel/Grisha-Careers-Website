@@ -26,7 +26,7 @@ def load_jobs_from_db():
 def load_job_from_db(id):
   with engine.connect() as conn:
     result = conn.execute(
-      text(f"SELECT * FROM jobs WHERE id ={id}"))
+      text(f"SELECT * FROM jobs WHERE id ='{id}'"))
     rows=[]
     for row in result.all():
       rows.append(row._mapping)
@@ -68,7 +68,7 @@ def add_application_to_db_1(job_id, data):
 def status(name,mail):
   with engine.connect() as conn:
     result = conn.execute(
-    text(f"SELECT * FROM applications WHERE full_name={name} and email={mail}"))
+    text(f"SELECT * FROM applications WHERE full_name='{name}' and email='{mail}'"))
     rows=[]
     for i in result.all():
       rows.append(i._mapping)
@@ -78,14 +78,71 @@ def status(name,mail):
         return rows
         #return [dict(row) for row in rows][0]
         
-                  
-    
 
+#___________ADD -NEW-USER-TO -DB______________________________
+def add_user_to_db(n,m,p):
+  with engine.connect() as conn:
+    conn.execute(text(f"INSERT INTO register_user (full_name, email,pasword) VALUES ('{n}','{m}','{p}')"))
+  
+  
+#___________AURORISATION OF USER______________________________
+def autorization_user(n,m,p):
+  with engine.connect() as conn:
+    result = conn.execute(text(f"SELECT * FROM register_user WHERE full_name='{n}' and email='{m}'  and pasword='{p}'"))
+    rows=[]
+    for i in result.all():
+      rows.append(i._mapping)
+      if len(rows)==0:
+        return None
+      else:
+        return rows
 
+#__________SELECT -USER______________________________
+def select_user(m):
+  with engine.connect() as conn:
+    result = conn.execute(text(f"SELECT * FROM register_user WHERE email='{m}'"))
+    rows=[]
+    for i in result.all():
+      rows.append(i._mapping)
+      if len(rows)==0:
+        return None
+      else:
+        return [dict(row) for row in rows][0]
 
-
-
-             
+#__________SELECT -REGISTER-user______________________________
+def select_user_all():
+  with engine.connect() as conn:
+    result = conn.execute(text(f"SELECT * FROM register_user"))
+    rows=[]
+    for i in result.all():
+      rows.append(i._mapping)
+      if len(rows)==0:
+        return None
+      else:
+        return [dict(row) for row in rows][0]             
     
   
+#__________LOGIN-USER_____________________
+def login_user(m,p):
+  with engine.connect() as conn:
+    result = conn.execute(text(f"SELECT * FROM register_user WHERE email='{m}' and pasword='{p}'"))
+    rows=[]
+    for i in result.all():
+      rows.append(i._mapping)
+      if len(rows)==0:
+        return None
+      else:
+        return rows
 
+#__________SELECT - APPLICATION______________________________________________________
+def applications(n,m):
+  with engine.connect() as conn:
+    result = conn.execute(text(f"SELECT title,status FROM applications JOIN jobs on jobs.id=applications.job_id WHERE full_name='{n}' and email='{m}'"))
+    rows=[]
+    for i in result.all():
+      rows.append(i._mapping)
+      if len(rows)==0:
+        return None
+      else:
+        return [dict(row) for row in rows][0]             
+    

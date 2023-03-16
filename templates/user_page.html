@@ -22,7 +22,7 @@
         </div>
         <div class="d-none d-md-block col-md-6">
           <div>
-            <img class="img-fluid" src="static/people.jpg"
+            <img class="img-fluid" src="static/people.jpg" alt="people"
             style="height:300px; border-radius:4px;">
           </div>  
         </div>
@@ -32,11 +32,21 @@
         {% for job in jobs %}
           {% include "jobitem.html" %}
         {% endfor %}
+        <div class="border-bottom row" style="margin-bottom:16px;padding-bottom:17px;">
+          <div class="col-9">
+            <h5 style=" margin-bottom:4px;">
+              To view the status of your applications.</h5>
+          </div>
+        <div class="col-2">
+          <a href="/{{name}}/{{mail}}/application"
+            type="button" class="btn btn-outline-primary float-right align-middle">Status</a>
+        </div>
+        </div>  
       </p>
+          
       <div class="text-center">
-        <a class="btn btn-primary btn-lg" 
+        <a class="btn btn-primary btn-middle" 
           href="mailto:marimare@inbox.ru?subject=Question%20about%20Job%20Openings&body=My%20name%3A%20%3CYour%20name%20here%2Cpelase%3E%0D%0AMy%20question%3A%3CEnter%20Your%20question%20here%2C%20please%3E">Contact Us</a>
-      </div>  
     </div>
     {% include "footer.html" %}
   </body>
