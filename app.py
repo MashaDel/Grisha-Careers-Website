@@ -197,7 +197,7 @@ def apply_to_job(id,name,mail):
 
   
 
-#_regect_page______________________________________
+#_Regect_page______________________________________
 @app.route("/<name>/<mail>/<title>/reject")
 def reject_user(name,mail,title):
   reject(name,mail,title)
@@ -268,11 +268,6 @@ def not_viewed_user(name,mail,title):
                          table_value=val,
                          col_l=col_len
                          ) 
-
-
-
-
-
 
 
   
