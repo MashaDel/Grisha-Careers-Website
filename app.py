@@ -1,11 +1,11 @@
 from flask import Flask,render_template,jsonify,request
-from database import load_jobs_from_db,load_job_from_db,add_application_to_db,status,add_user_to_db,autorization_user, select_user,select_user_all,login_user,applications
+from database import load_jobs_from_db,load_job_from_db,add_application_to_db,status,add_user_to_db,autorization_user, select_user,select_user_all,login_user,applications,applications_all,reject,accept,not_viewed
 
 
 
 app=Flask(__name__)
 
-#______________LOGIN_____________________________________________________________
+#_______LOGIN______________________________________________
 @app.route("/login")
 def login_page():
   return render_template("login_form.html")
@@ -20,6 +20,30 @@ def login_done():
   parol=data['password'][0]
   if login_user(mail,parol)==None:
     return render_template("login_wrong.html")
+    
+  elif mail=='solik@mail.ru' and parol=='papik':
+    user_info=select_user(mail)
+    table=applications_all()
+    if table==None:
+      return render_template("admin_none_app.html")
+    else:
+      a=['id']
+      for i in table[0].keys():
+        a.append(i)
+      name_col=a
+      col_len=len(a)
+      val=[]
+      for i in table:
+        val.append( sorted(set(i.values())) )
+      return render_template("admin_page.html",
+                         name=user_info["full_name"],
+                         mail=user_info["email"],
+                         table=table,
+                         col=name_col,
+                         len=len(val),
+                         table_value=val,
+                         col_l=col_len
+                         ) 
   else:
     user_info=select_user(mail)
   return render_template("login_submitted.html",
@@ -45,7 +69,6 @@ def register_done():
   name=data['new_name'][0]
   mail=data['new_email'][0]
   parol=data['new_password'][0]
-  #print(autorization_user(name,mail,parol))
   if autorization_user(name,mail,parol)!=None:
     return render_template("register_wrong.html")
   else:  
@@ -57,7 +80,7 @@ def register_done():
                          )
 
 
-#_________USER-PAGE____________________________________________________________
+#__USER-PAGE______________________________________________
 @app.route("/<name>/<mail>")
 def user_page(name,mail):
   jobs=load_jobs_from_db()
@@ -103,26 +126,29 @@ def user_status(name,mail):
                           )
   else:
     a=['id']
-    for i in table.keys():
+    for i in table[0].keys():
       a.append(i)
     name_col=a
-    table_value=table.values()
+    col_len=len(a)
     len_table=len(table)
-    print(type(table))
+    val=[]
+    for i in table:
+      val.append(sorted( set(i.values()) ))
     return render_template("status_page.html",
                           table=table,
                           u_name=u_name,
+                          u_mail=u_mail,
                           col=name_col,
-                          table_value=table_value,
-                          len=len
+                          len=len(val),
+                          table_value=val,
+                          col_l=col_len
+                          
                             )
 
 
 
 
-
-
-
+#__HOME_PAGE________________________________________________
 @app.route("/")
 def hello_grisha():
   jobs=load_jobs_from_db()
@@ -145,7 +171,7 @@ def show_job_json(id):
   return jsonify(job)
   
 
-
+#__APPLICATION _SUBMITTED___________________________________
 @app.route("/job/<id>/<name>/<mail>/apply", methods=["post"])
 def apply_to_job(id,name,mail):
   job=load_job_from_db(id)
@@ -155,19 +181,93 @@ def apply_to_job(id,name,mail):
   u_name=user_info['full_name']
   u_mail=user_info['email']
   job=load_job_from_db(id)
-  add_application_to_db(id,data)
-  return render_template("application_submitted.html",
+  if add_application_to_db(id,data)==True:
+    return render_template("application_submitted.html",
                           application=data,
                           job=job,
                           data=data,
                           u_name=u_name,
                           u_mail=u_mail
-                        )
+                          )
+  else:
+    return render_template("just_have_app.html",
+                          u_name=u_name,
+                          u_mail=u_mail  
+                            )
 
   
 
+#_regect_page______________________________________
+@app.route("/<name>/<mail>/<title>/reject")
+def reject_user(name,mail,title):
+  reject(name,mail,title)
+  user_info=select_user(mail)
+  table=applications_all()
+  a=['id']
+  for i in table[0].keys():
+    a.append(i)
+  name_col=a
+  col_len=len(a)
+  val=[]
+  for i in table:
+    val.append( sorted(set(i.values())) )
+  return render_template("admin_page.html",
+                         name=user_info["full_name"],
+                         mail=user_info["email"],
+                         table=table,
+                         col=name_col,
+                         len=len(val),
+                         table_value=val,
+                         col_l=col_len
+                         ) 
 
-
+  
+#_ACCEPT_PAGE______________________________________
+@app.route("/<name>/<mail>/<title>/accept")
+def accept_user(name,mail,title):
+  accept(name,mail,title)
+  user_info=select_user(mail)
+  table=applications_all()
+  a=['id']
+  for i in table[0].keys():
+    a.append(i)
+  name_col=a
+  col_len=len(a)
+  val=[]
+  for i in table:
+    val.append( sorted(set(i.values())) )
+  return render_template("admin_page.html",
+                         name=user_info["full_name"],
+                         mail=user_info["email"],
+                         table=table,
+                         col=name_col,
+                         len=len(val),
+                         table_value=val,
+                         col_l=col_len
+                         ) 
+#_NOT_VIEWED_PAGE______________________________________
+@app.route("/<name>/<mail>/<title>/not viewed")
+def not_viewed_user(name,mail,title):
+  not_viewed(name,mail,title)
+  user_info=select_user(mail)
+  table=applications_all()
+  a=['id']
+  for i in table[0].keys():
+    a.append(i)
+  name_col=a
+  col_len=len(a)
+  val=[]
+  for i in table:
+    val.append( sorted(set(i.values())) )
+  return render_template("admin_page.html",
+                         name=user_info["full_name"],
+                         mail=user_info["email"],
+                         table=table,
+                         col=name_col,
+                         len=len(val),
+                         table_value=val,
+                         col_l=col_len
+                         ) 
 
 
 

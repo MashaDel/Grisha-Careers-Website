@@ -6,13 +6,10 @@
   </head>
   <body>
     {% include "nav.html" %}
-    <div class="float-end mt-3 mb-2 ">
-      <a href="/" type ="button" class="btn btn-secondary btn-middele align-middle ">SIGN OUT</a>
-    </div>  
     <div>
           <style>
             #enter{
-            height:500px;
+            height:495px;
             width:100%;
             object-fit:cover;
             margin-bottom:16px; }
@@ -20,9 +17,8 @@
           <img class="img-fluid" id="enter" src="/static/enter.jpg" alt="enter"> 
         </div>
   <div class="container"> 
-    <h4 class="text-center mt-2 mb-4">Hello,{{name}}!  Your entered is secseccfull done.</h4> 
-    <h3>data={{a}} </h3>
-      
+    <h4 class="text-center mt-2 mb-4">Hello,{{name}}!  Your entered is secseccfull done.</h4>
+    <h4 class="text-center mt-2 mb-4">Please click <b>"continue"</b> to proceed.</h4>  
     <div class="text-center mt-2 mb-4" >
       <a href="/{{name}}/{{mail}}" type="button" class="btn btn-secondary float-right align-  middle"> CONTINUE</a>
     </div>  

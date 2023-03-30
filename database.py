@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine,text,insert
+from sqlalchemy import create_engine,text,insert,update
 import os
 
 db_connection_string = os.environ["DB_CONNECTION_STRING"]
@@ -36,7 +36,7 @@ def load_job_from_db(id):
       return [dict(row) for row in rows][0]
       
 
-#first variant of function sqlalchemy 2.0.4
+#first variant of function sqlalchemy 2.0.4________________
 def add_application_to_db(job_id, data):
   a=data["full_name"][0]
   b=data['email'][0]
@@ -46,10 +46,20 @@ def add_application_to_db(job_id, data):
   f=data['resume_url'][0]
   g="not viewed"
   with engine.connect() as conn:
-    conn.execute(text(f"INSERT INTO applications (job_id, full_name, email, linkedin_url, education, work_experience, resume_url,status) VALUES ({job_id}, '{a}','{b}','{c}','{d}', '{e}', '{f}','{g}')"))
+    #conn.execute(text(f"INSERT INTO applications (job_id, full_name, email, linkedin_url, education, work_experience, resume_url,status) VALUES ({job_id}, '{a}','{b}','{c}','{d}', '{e}', '{f}','{g}')"))
+    res=conn.execute(text(f"SELECT job_id,full_name,email FROM applications WHERE job_id={job_id} and full_name='{a}' and email='{b}'")).all()
+    if len(res)==0:
+      conn.execute(text(f"INSERT INTO applications (job_id, full_name, email, linkedin_url, education, work_experience, resume_url,status) VALUES ({job_id}, '{a}','{b}','{c}','{d}', '{e}', '{f}','{g}')"))
+      return True
+    else:
+      return False
+      #conn.execute(text(f"UPDATE applications SET linkedin_url='{c}',education='{d}',work_experience='{e}',resume_url='{f}',status WHERE full_name='{n}' and email='{m}' and job_id={res}"))
 
 
-#second variant of function sqlalchemy 1.4.6
+      
+
+
+#second variant of function sqlalchemy 1.4.6_______________
 def add_application_to_db_1(job_id, data):
   with engine.connect() as conn:
     query = text(f"INSERT INTO applications (job_id, full_name, email, linkedin_url, education, work_experience, resume_url,status) VALUES (:job_id, :full_name, :email, :linkedin_url, :education, :work_experience, :resume_url)")
@@ -134,15 +144,56 @@ def login_user(m,p):
       else:
         return rows
 
-#__________SELECT - APPLICATION______________________________________________________
+#_SELECT - APPLICATION____________________________________
 def applications(n,m):
   with engine.connect() as conn:
     result = conn.execute(text(f"SELECT title,status FROM applications JOIN jobs on jobs.id=applications.job_id WHERE full_name='{n}' and email='{m}'"))
     rows=[]
+   #res=result.all()
+   #print(result.all())
     for i in result.all():
-      rows.append(i._mapping)
-      if len(rows)==0:
-        return None
-      else:
-        return [dict(row) for row in rows][0]             
+      if i not in rows:
+        rows.append(i)
+    if len(rows)==0:
+      return None
+    else:
+        return [dict(row) for row in rows ]
+
+
+      
+#APPLICATIONS_ALL_______________________________________________
+def applications_all():
+  with engine.connect() as conn:
+    result = conn.execute(text(f"SELECT title,full_name,email,linkedin_url,education,work_experience,resume_url,status FROM applications JOIN jobs on jobs.id=applications.job_id "))
+    rows=[]
+    for i in result.all():
+      if i not in rows:
+        rows.append(i._mapping)
+    if len(rows)==0:
+      return None
+    else:
+        return [dict(row) for row in rows ]
+
+
+
+#_REJECT-USER____________________________________
+def reject(n,m,t):
+  with engine.connect() as conn:
+    res=conn.execute(text(f"SELECT applications.job_id FROM applications JOIN jobs on jobs.id=applications.job_id WHERE title='{t}'")).first()[0]
+    result = conn.execute(text(f"UPDATE applications SET status='reject' WHERE full_name='{n}' and email='{m}' and job_id={res}"))
+    return True
+
     
+#_ACCEPT-USER____________________________________
+def accept(n,m,t):
+  with engine.connect() as conn:
+    res=conn.execute(text(f"SELECT applications.job_id FROM applications JOIN jobs on jobs.id=applications.job_id WHERE title='{t}'")).first()[0]
+    result = conn.execute(text(f"UPDATE applications SET status='accept' WHERE full_name='{n}' and email='{m}' and job_id={res}"))
+    return True
+
+#_NOT_VIEWED-USER____________________________________
+def not_viewed(n,m,t):
+  with engine.connect() as conn:
+    res=conn.execute(text(f"SELECT applications.job_id FROM applications JOIN jobs on jobs.id=applications.job_id WHERE title='{t}'")).first()[0]
+    result = conn.execute(text(f"UPDATE applications SET status='not viewed' WHERE full_name='{n}' and email='{m}' and job_id={res}"))
+    return True

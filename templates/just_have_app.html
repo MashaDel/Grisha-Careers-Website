@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Login page</title>
+    {% include 'bootstrap.html' %}
+  </head>
+  <body>
+    {% include "nav.html" %}
+    <div class="d-flex justify-content-center align-items-center mb-3 mt-3"    style="background-image: url('/static/bg2.jpg');height: 760px;">
+      <div >
+        <h2 class="text-center mt-2 mb-4">You have already submitted your application for this position.</h2>
+        <h4 class="text-center mt-2 mb-4">You can send applications for the <b>remaining vacancies</b> of our company.</h4><br>
+        <div class="text-center mt-2 mb-4">
+          <a href="/{{u_name}}/{{u_mail}}" type ="button" class="btn btn-dark btn-middele align-middle ">GO FOR APPLY</a>
+        </div>
+      </div>
+    </div> 
+    {% include "footer.html" %}
+  </body>
+</html>

@@ -5,10 +5,10 @@
     {% include 'bootstrap.html' %}
   </head>
   <body>
-    {% include "nav.html" %}
+    {% include "nav_home_page.html" %}
     <style>
       #login{
-      height:490px;
+      height:240px;
       width:100%;
       object-fit:cover;
       margin-bottom:16px;
@@ -17,16 +17,16 @@
     <img class="img-fluid" id="login" src="/static/login.jpg" alt="login" >
     
     <div class="container"> 
-      <h1 class="text-center mt-2 mb-4"> 
+      <h2 class="text-center mt-2 mb-4"> 
         Grisha Careers
-      </h1>
+      </h2>
       <div class="row" style="margin-bottom:16px">
         <div class="col-md-6">
       <p class="lead"> 
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </p>
         </div>
-        <div class="d-none d-md-block col-md-6">
+        <div class="d-none d-md-block col-md-6 ">
         <img src="static/login1.jpg" 
           style="height:300px; border-radius:4px;">
         </div>
@@ -36,8 +36,8 @@
         {% include "start_form.html" %}</h2>
         
       <div class="text-center">
-        <h4 class="text-center mt-2 mb-4">Maybe you have questions?</h4>
-        <a class="btn btn-primary btn-sm" 
+        <h6 class="text-center mt-2 mb-4">Maybe you have questions?</h6>
+        <a class="btn btn-secondary btn-sm align-middle" 
           href="mailto:marimare@inbox.ru?subject=Question%20about%20Job%20Openings&body=My%20name%3A%20%3CYour%20name%20here%2Cpelase%3E%0D%0AMy%20question%3A%3CEnter%20Your%20question%20here%2C%20please%3E">Contact Us</a>
       </div>  
     </div>

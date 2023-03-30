@@ -7,22 +7,16 @@
   <body>
     {% include "nav.html" %}
     {% include 'banner.html' %}
-
     <div class="container"> 
-      <h1 class="text-center mt-2 mb-4"> <br>
-        Congratulates, {{new_name}}!!!
-      </h1> 
-
-      <h1><p>Your registration is secseccfull done.</p></h1>
-      <h3>data={{a}} </h3>
-
-      <div class="col-2 padding-right:16px">
-        <a href="/login" 
-        type="button" class="btn btn-outline-primary float-right align-middle">SIGN IN</a>
-      </div> 
-      
-      
+      <h2 class="text-center mt-2 mb-4">
+        {{new_name}},your registration is secseccfull done.</h2>
+      <h4 class="text-center mt-2 mb-4">Please click <b>"continue"</b> to proceed.</h4>  
+    <div class="text-center mt-2 mb-4" >
+      <a href="/login" type="button" class="btn btn-secondary float-right align-  middle"> CONTINUE</a>
+    </div>  
     </div>
     {% include "footer.html" %}
   </body>
 </html>
+
+ 
