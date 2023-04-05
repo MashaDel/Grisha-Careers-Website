@@ -21,7 +21,7 @@ def login_done():
   if login_user(mail,parol)==None:
     return render_template("login_wrong.html")
     
-  elif mail=='solik@mail.ru' and parol=='papik':
+  elif mail=='soligorsk@mail.ru' and parol=='mine':
     user_info=select_user(mail)
     table=applications_all()
     if table==None:
